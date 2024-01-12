@@ -25,7 +25,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +64,16 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* PÁGINA LIST */
+
+table {
+  border: none;
+  padding-top: 2%;
+}
+
+th {
+  color: #333;
+  background-color: #ffffff;
 }
