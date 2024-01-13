@@ -127,3 +127,23 @@ th {
 .dropdown-filter select {
   font-size: medium;
 }
+
+.filter-button {
+	width: 120px;
+	right: -28px;
+	bottom: 17px;
+	position: relative;
+}
+
+.action-button {
+  width: 30px;
+  height: 35px;
+  background-color: #666666;
+}
+
+.action-image {
+  width: 24px;
+  position: relative;
+  right: 12px;
+  bottom: 4px;
+}
