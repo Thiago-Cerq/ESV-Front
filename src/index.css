@@ -66,6 +66,12 @@ button:focus-visible {
   }
 }
 
+input {
+  margin: auto;
+  padding: auto;
+  position: relative;
+}
+
 /* PÁGINA LIST */
 
 table {
@@ -76,4 +82,27 @@ table {
 th {
   color: #333;
   background-color: #ffffff;
+}
+
+.pesquisa {
+  width: 55%;
+  cursor: text;
+}
+
+.filtragem {
+  width: 24px;
+  right: 32%;
+  top: 71px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.dropdown-filter {
+  position: absolute;
+  background-color: #333;
+  width: 180px;
+  right: 27%;
+  border-radius: 5%;
+  text-align: left;
+  padding: 0% 13px 10px 13px;
 }
