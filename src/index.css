@@ -102,7 +102,28 @@ th {
   background-color: #333;
   width: 180px;
   right: 27%;
-  border-radius: 5%;
+  border-radius: 7px;
   text-align: left;
-  padding: 0% 13px 10px 13px;
+  padding: 0% 13px 0px 13px;
+}
+
+.dropdown-filter.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-filter.inactive {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown-filter ul li{
+  margin-left: -18px;
+  font-weight: 500;
+  list-style: none;
+  padding-bottom: 20px;
+}
+
+.dropdown-filter select {
+  font-size: medium;
 }

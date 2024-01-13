@@ -4,7 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import './Navbar.css'
 
+import React, {useState, useEffect, useRef} from 'react';
+
 import FilterImage from './assets/filter.png'
+import FilterImage1 from './assets/filter1.png'
 
 'use client;'
 
@@ -18,40 +21,54 @@ function List() {
     resolver: yupResolver(schema),
   });
 
-function onSubmit(userData: any) {
-    console.log(userData);
-}
+  function onSubmit(userData: any) {
+      console.log(userData);
+  }
 
-console.log(errors);
+  console.log(errors);
+
+
+// USESTATE E USEEFFECT PARA FILTRO
+  const [open, setOpen] = useState(false);
+
+  const filterRef = useRef();
+
+  useEffect(() => {
+    const handler = (e) =>{
+      if(!filterRef.current.contains(e.target)){
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handler);
+});
+
     
   return (
 
     <div>
 
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <span>{errors.pesquisa?.message}</span>
-          <input {...register('pesquisa', {required: true})} type="text" placeholder="Pesquise por uma informação" 
+          <input {...register('pesquisa', {required: true})} type="text" placeholder="Pesquise por palavra-chave" 
           className='pesquisa'/>
         </form>
-        <img src={FilterImage} className="filtragem"/>
 
-        <div className="dropdown-filter">
-          <h4>Filtro</h4>
-          <hr />
-          <label>UF</label>
-          <select>
-            <option value="">AC</option> <option value="">AL</option> <option value="">AP</option> <option value="">AM</option>
-            <option value="">BA</option> <option value="">CE</option> <option value="">DF</option> <option value="">ES</option>
-            <option value="">GO</option> <option value="">MA</option> <option value="">MT</option> <option value="">MS</option>
-            <option value="">MG</option> <option value="">PA</option> <option value="">PB</option> <option value="">PR</option>
-            <option value="">PE</option> <option value="">PI</option> <option value="">RJ</option> <option value="">RN</option>
-            <option value="">RS</option> <option value="">RO</option> <option value="">RR</option> <option value="">SC</option>
-            <option value="">SP</option> <option value="">SE</option> <option value="">TO</option>
-          </select>
+        <div ref={filterRef}>
+        <div className='filter-trigger' onClick={()=>{setOpen(!open)}}>
+          <img src={FilterImage1} className="filtragem" id="changeimg"/>
         </div>
-      </div>
-
+        
+          <div className={`dropdown-filter ${open? "active" : "inactive"}`}>
+            <h3>Filtro</h3>
+            <hr />
+            <ul>
+              <DropdownItem title = {"Tipo"} option = {"Restaurante"}/>
+              <DropdownItem title = {"UF"} option = {"AC"}/>
+            </ul>
+          </div>
+        </div>
+        </div>
     
 
     <table border="0" width="100%" className="tabela">
@@ -79,5 +96,18 @@ console.log(errors);
     </div>
   );
 }
-  
+
+function DropdownItem(props: {title: string, option: string}){
+  return(
+    <li className='dropdownItem'>
+      <label> {props.title} </label>
+      <select>
+        <option> {props.option} </option>
+      </select>
+    </li>
+  );
+}
+
+
+
   export default List
