@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Outlet, Link } from "react-router-dom"
 
 
 const Navbar = () => {
@@ -23,22 +24,17 @@ const Navbar = () => {
             className={activeItem === 'about' ? 'navbar-item active' : 'navbar-item'}
             onClick={() => handleItemClick('about')}
           >
-            About
-          </li>
-          <li
-            className={activeItem === 'services' ? 'navbar-item active' : 'navbar-item'}
-            onClick={() => handleItemClick('services')}
-          >
-            Services
+            <Link to="/list">Tabela de Dados</Link>
           </li>
           <li
             className={activeItem === 'contact' ? 'navbar-item active' : 'navbar-item'}
             onClick={() => handleItemClick('contact')}
           >
-            Contact
+            <Link to="/register">Registre-se</Link>
           </li>
         </ul>
       </nav>
+      <Outlet/>
     </div>
   );
 };
