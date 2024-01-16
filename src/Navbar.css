@@ -5,6 +5,12 @@ div {
   padding: 0px;
 }
 
+ul.navbar-list {
+  margin: 0;
+  margin-bottom: 20px;
+  line-height: 3;
+}
+
 .navbar {
     background-color: #333;
   }

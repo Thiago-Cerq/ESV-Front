@@ -24,13 +24,13 @@ const Navbar = () => {
             className={activeItem === 'about' ? 'navbar-item active' : 'navbar-item'}
             onClick={() => handleItemClick('about')}
           >
-            <Link to="/list">Tabela de Dados</Link>
+            <Link to="/list" className='navbar-item'>Tabela de Dados</Link>
           </li>
           <li
             className={activeItem === 'contact' ? 'navbar-item active' : 'navbar-item'}
             onClick={() => handleItemClick('contact')}
           >
-            <Link to="/register">Registre-se</Link>
+            <Link to="/register" className='navbar-item'>Registre-se</Link>
           </li>
         </ul>
       </nav>
