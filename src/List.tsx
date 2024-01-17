@@ -51,7 +51,7 @@ function List() {
       <div>
         <form>
           <span>{errors.pesquisa?.message}</span>
-          <input {...register('pesquisa', {required: true})} type="text" placeholder="Pesquise por palavra-chave" 
+          <input {...register('pesquisa', {required: false})} type="text" placeholder="Pesquise por palavra-chave" 
           className='pesquisa'/>
         </form>
 
@@ -64,8 +64,7 @@ function List() {
             <h3>Filtro</h3>
             <hr />
             <ul>
-              <DropdownItem title = {"Tipo"} option = {"Restaurante"}/>
-              <DropdownItem title = {"UF"} option = {"AC"}/>
+              <DropdownItem title = {"UF"} options = {ufList}/>
             </ul>
             <button type="submit" className='filter-button'> Buscar </button>
           </div>
@@ -89,38 +88,6 @@ function List() {
         <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
         <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
       </tbody>
-      <tbody>
-        <td>Exemplozinho 2</td>
-        <td>RJ</td>
-        <td>Rio de Janeiro</td>
-        <td>Rua Lauro Müller, 116 - Botafogo, Rio de Janeiro - RJ, 22290-160</td>
-        <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
-        <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
-      </tbody>
-      <tbody>
-        <td>Mega Ultra Exemplo 3</td>
-        <td>SP</td>
-        <td>São Paulo</td>
-        <td>R. da Reitoria, R. Cidade Universitária, 374 - Butantã, São Paulo - SP, 05508-220</td>
-        <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
-        <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
-      </tbody>
-      <tbody>
-        <td>GIGANTESCO EXEMPLO EXEMPLAR 4</td>
-        <td>SC</td>
-        <td>Florianópolis</td>
-        <td>Eng. Agronômico Andrei Cristian Ferreira, s/n - Trindade, Florianópolis - SC, 88040-900</td>
-        <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
-        <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
-      </tbody>
-      <tbody>
-        <td>Exemplo 5</td>
-        <td>BA</td>
-        <td>Salvador</td>
-        <td>Av. Milton Santos, s/nº - Ondina, Salvador - BA, 40170-110</td>
-        <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
-        <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
-      </tbody>
       {/* criar um loop aqui após integração */}
     </table>
 
@@ -128,16 +95,50 @@ function List() {
   );
 }
 
-function DropdownItem(props: {title: string, option: string}){
+function DropdownItem(props: {title: string, options: Array<string>}){
   return(
     <li className='dropdownItem'>
       <label> {props.title} </label>
-      <select>
-        <option> {props.option} </option>
-      </select>
+      <select>{props.options.map(option => <option key={option}>{option}</option>)}</select>
     </li>
   );
 }
+
+// const ufList = [
+//   {uf: 'AC', state: 'Acre'},
+//   {uf: 'AL', state: 'Alagoas'},
+//   {uf: 'AP', state: 'Amapá'},
+//   {uf: 'AM', state: 'Amazonas'},
+//   {uf: 'BA', state: 'Bahia'},
+//   {uf: 'CE', state: 'Ceará'},
+//   {uf: 'DF', state: 'Distrito Federal'},
+//   {uf: 'ES', state: 'Espírito Santo'},
+//   {uf: 'GO', state: 'Goiás'},
+//   {uf: 'MA', state: 'Maranhão'},
+//   {uf: 'MT', state: 'Mato Grosso'},
+//   {uf: 'MS', state: 'Mato Grosso do Sul'},
+//   {uf: 'MG', state: 'Minas Gerais'},
+//   {uf: 'PA', state: 'Pará'},
+//   {uf: 'PB', state: 'Paraíba'},
+//   {uf: 'PR', state: 'Paraná'},
+//   {uf: 'PE', state: 'Pernambuco'},
+//   {uf: 'PI', state: 'Piauí'},
+//   {uf: 'RJ', state: 'Rio de Janeiro'},
+//   {uf: 'RN', state: 'Rio Grande do Norte'},
+//   {uf: 'RS', state: 'Rio Grande do Sul'},
+//   {uf: 'RO', state: 'Rondônia'},
+//   {uf: 'RR', state: 'Roraima'},
+//   {uf: 'SC', state: 'Santa Catarina'},
+//   {uf: 'SP', state: 'São Paulo'},
+//   {uf: 'SE', state: 'Sergipe'},
+//   {uf: 'TO', state: 'Tocantins'},
+// ]
+
+const ufList = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+  'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+  'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+]
 
 
 
