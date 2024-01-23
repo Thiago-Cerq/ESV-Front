@@ -1,9 +1,22 @@
+div {
+  width: 100%;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+ul.navbar-list {
+  margin: 0;
+  margin-bottom: 20px;
+  line-height: 3;
+}
+
 .navbar {
     background-color: #333;
-    padding: 12px;
   }
   
   .navbar-list {
+    text-align: center;
     list-style-type: none;
     display: flex;
   }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Outlet, Link } from "react-router-dom"
 
 
 const Navbar = () => {
@@ -10,34 +11,31 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <ul className="navbar-list">
-        <li
-          className={activeItem === 'home' ? 'navbar-item active' : 'navbar-item'}
-          onClick={() => handleItemClick('home')}
-        >
-          Home
-        </li>
-        <li
-          className={activeItem === 'about' ? 'navbar-item active' : 'navbar-item'}
-          onClick={() => handleItemClick('about')}
-        >
-          About
-        </li>
-        <li
-          className={activeItem === 'services' ? 'navbar-item active' : 'navbar-item'}
-          onClick={() => handleItemClick('services')}
-        >
-          Services
-        </li>
-        <li
-          className={activeItem === 'contact' ? 'navbar-item active' : 'navbar-item'}
-          onClick={() => handleItemClick('contact')}
-        >
-          Contact
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <nav className="navbar">
+        <ul className="navbar-list">
+          <li
+            className={activeItem === 'home' ? 'navbar-item active' : 'navbar-item'}
+            onClick={() => handleItemClick('home')}
+          >
+            Home
+          </li>
+          <li
+            className={activeItem === 'about' ? 'navbar-item active' : 'navbar-item'}
+            onClick={() => handleItemClick('about')}
+          >
+            <Link to="/list" className='navbar-item'>Tabela de Dados</Link>
+          </li>
+          <li
+            className={activeItem === 'contact' ? 'navbar-item active' : 'navbar-item'}
+            onClick={() => handleItemClick('contact')}
+          >
+            <Link to="/register" className='navbar-item'>Registre-se</Link>
+          </li>
+        </ul>
+      </nav>
+      <Outlet/>
+    </div>
   );
 };
 
