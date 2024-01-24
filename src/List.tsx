@@ -3,7 +3,8 @@ import{ useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import './Navbar.css'
-import Line from './Line'
+import './Pag.css'
+
 
 import {useState, useEffect, useRef} from 'react';
 
@@ -22,12 +23,20 @@ const schema = yup
 function List() {
 
   const [info, setInfo] = useState<any[]>([]);
+  const [head, setHead] = useState<any[any]>([]);
+  const [pages, setPages] = useState([]);
+  const [limit, setLimit] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   const getInfo = () => {
+      //Passando porpagina
+      //axios.get("http://localhost:8080/suas/v1/equipamentos/municipio/2111300/tipo/CRAT?page=${currentPage}&limit={${limit}}")	
       axios.get("http://localhost:8080/suas/v1/equipamentos/municipio/2111300/tipo/CRAT")	
       .then((response) => {
-      console.log(response.data.content)
       setInfo(response.data.content)
+      setHead(response.data.page)
+      console.log(response.data.page)
       console.log("A requisição foi um sucesso!")
 
       })
@@ -36,13 +45,13 @@ function List() {
       })
   }
 
-  const { register, handleSubmit ,formState: {errors} } = useForm({
+  const { register ,formState: {errors} } = useForm({
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(userData: any) {
-      console.log(userData);
-  }
+  //function onSubmit(userData: any) {
+  //    console.log(userData);
+  //}
 
   function addLine(data: any) {
     return (
@@ -62,7 +71,7 @@ function List() {
 
   function interador(data: any) {
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].id);
+  
     }
   }
 
@@ -82,15 +91,23 @@ function List() {
       }
     }
     document.addEventListener("mousedown", handler);
-    getInfo()
-    interador(info)
+    getInfo();
+    interador(info);
+    const totalPaginas = Math.ceil(head.totalElements / limit);
+
+    const arrayPages = [];
+    for(let i = 0; i < totalPaginas; i++){
+      arrayPages.push(i);
+    }
+
+    setPages(arrayPages);
+
   },[]) 
 
     
   return (
 
     <div>
-
       <div>
         <form>
           <span>{errors.pesquisa?.message}</span>
@@ -132,7 +149,25 @@ function List() {
         ))}
       </>
     </table>
+    <div className='paginacao'>
+          <div className='qtdpages'>
+            Quantidada total de dados: {head.totalElements}  
+          </div>
+            <div className='paginas'>
+              Previous
+              {pages.map((page, index) => (
+                <div key={index}
+                  onClick = {()=>setCurrentPage(page)}>{page}
+                </div>
+              ))}
+              Next
+            </div>     
+    </div>
+    <div>
+    
 
+    </div>
+ 
     </div>
   );
 }
