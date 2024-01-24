@@ -1,14 +1,16 @@
-//import axios from 'axios';
+import axios from 'axios';
 import{ useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import './Navbar.css'
+import Line from './Line'
 
-import React, {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 import FilterImage1 from './assets/filter1.png'
 import TrashImage from './assets/trash.png'
 import EditImage from './assets/edit.png'
+import React from 'react';
 
 'use client;'
 
@@ -18,6 +20,22 @@ const schema = yup
   }).required()
 
 function List() {
+
+  const [info, setInfo] = useState<any[]>([]);
+
+  const getInfo = () => {
+      axios.get("http://localhost:8080/suas/v1/equipamentos/municipio/2111300/tipo/CRAT")	
+      .then((response) => {
+      console.log(response.data.content)
+      setInfo(response.data.content)
+      console.log("A requisição foi um sucesso!")
+
+      })
+      .catch(() => {
+      console.log("Deu errado!")
+      })
+  }
+
   const { register, handleSubmit ,formState: {errors} } = useForm({
     resolver: yupResolver(schema),
   });
@@ -26,12 +44,35 @@ function List() {
       console.log(userData);
   }
 
+  function addLine(data: any) {
+    return (
+      <tbody>
+        <tr>
+          <td>{data.nome}</td>
+          <td>{data.unidadeFederacao}</td>
+          <td>{data.nomeMunicipio}</td>
+          <td>{data.endereco}</td>
+          <td>{data.telefone}</td>
+          <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
+          <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
+        </tr>
+      </tbody>
+    )
+  }
+
+  function interador(data: any) {
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i].id);
+    }
+  }
+
+ 
+
   console.log(errors);
 
 
 // USESTATE E USEEFFECT PARA FILTRO
   const [open, setOpen] = useState(false);
-
   const filterRef = useRef();
 
   useEffect(() => {
@@ -41,7 +82,9 @@ function List() {
       }
     }
     document.addEventListener("mousedown", handler);
-});
+    getInfo()
+    interador(info)
+  },[]) 
 
     
   return (
@@ -74,21 +117,20 @@ function List() {
 
     <table border="1" width="100%" className="tabela">
       <thead>
-        <th>Tipo</th>
-        <th>UF</th>
+        <th>Nome</th>
+        <th>Estado</th>
         <th>Cidade</th>
         <th>Endereço</th>
+        <th>Telefone</th>
         <th>Ações</th>
       </thead>
-      <tbody>
-        <td>Exemplo</td>
-        <td>DF</td>
-        <td>Brasília</td>
-        <td>St. Leste Projeção A - Gama Leste, Brasília - DF, 72444-240</td>
-        <td><button type="submit" className='action-button'> <img src={EditImage} className="action-image"/> </button>
-        <button type="submit" className='action-button'> <img src={TrashImage} className="action-image"/> </button></td>
-      </tbody>
-      {/* criar um loop aqui após integração */}
+      <>
+        {info.map((item, index) => (
+          <React.Fragment key={index}>
+            {addLine(item)}
+          </React.Fragment>
+        ))}
+      </>
     </table>
 
     </div>
